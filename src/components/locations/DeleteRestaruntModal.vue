@@ -1,32 +1,25 @@
 <template>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger btn-action" data-bs-toggle="modal" data-bs-target="#deleteModal">
-        <font-awesome-icon :icon="['fas', 'trash-can']" />
-        <!-- <router-link :to="{ name: 'DeletePage', params: { locationId: 25 } }" class="btn btn-danger btn-action" ><font-awesome-icon :icon="['far', 'trash-can']" /></router-link> -->
-    </button>
-
-    <!-- Modal -->
+       <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <br/>
+                    <br />
                     <span class="trash">
                         <font-awesome-icon :icon="['far', 'trash-can']" />
                     </span>
-                    <h1>Delete {{restaruntName}} Restarunt?!!</h1>
-                    <h2>{{ props.deleteLocation }}</h2>
+                    <h1>Delete {{ deleteLocation.name }} Restarunt!</h1>
                     <p>You'll permanently lose your:</p>
                     <ul>
                         <li>-Catygories</li>
                         <li>-items</li>
                     </ul>
                     <h6>Type "Delete Restarunt" to confirm</h6>
-                    <input class="form-control" type="text" name="" id="">
+                    <input class="form-control" type="text" name="" id=""> 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" disabled @click="deletRest()">Cofirm</button>
+                    <button type="button" class="btn btn-danger" @click="deletRest()">Cofirm</button>
                 </div>
             </div>
         </div>
@@ -34,7 +27,7 @@
 </template>
 
 <style scoped>
-.trash{
+.trash {
     position: absolute;
     top: -25px;
     margin-left: -30px;
@@ -45,6 +38,7 @@
     height: 55px;
     border-radius: 50%;
 }
+
 .btn-action {
     border-radius: 50%;
     margin-right: 2px;
@@ -63,7 +57,8 @@
     width: 50%;
     margin-left: 25%;
 }
-ul{
+
+ul {
     list-style-type: none;
 }
 </style>
@@ -72,56 +67,43 @@ ul{
 <script setup>
 //Import
 import axios from "axios";
-import { ref, onMounted, defineProps } from "vue";
-import { useRouter } from "vue-router";
+import { ref, defineProps, defineEmits } from "vue";
 import { useStore } from "vuex";
 let store = useStore();
-const router = useRouter();
-// const props =  defineProps(['deleteLocation' , 'restaruntName']);
 
-const props =  defineProps({
-    deleteLocation:{
-        type: Number,
+const props = defineProps({
+    deleteLocation: {
+        type: Object,
         required: true
     },
-    restaruntName:{
-        type: String,
-        required: true
-    }
 });
+
+// Emits
+const emits = defineEmits(['reloadData']);
+
 //Data
 let st = store.state;
-let deleteLocation = ref(props.deleteLocation); 
-console.log("Rest Name is: ", props.restaruntName);
 let successMessage = ref('');
 let errorMessage = ref('');
 let allItemsIdIs = ref([]);
-onMounted(async () => {
-        // deleteLocation.value = parseInt(props.deleteLocation);
 
-        console.log("location id is : " , deleteLocation.value);
 
-        
-        store.commit('getAllcatygoriesIds', {locidIs: deleteLocation.value});
-        //Expacted Delet All This Whine Deal with Real API
-        let url = `http://localhost:3000/items?locId=${deleteLocation.value}`;
-        await axios.get(url)
-            .then(response => {
-                for (let i = 0; i < response.data.length; i++) {
-                    allItemsIdIs.value.push(response.data[i].id);
-                }
-            })
-            .catch(error => {
-                console.log(error , "M Err :-(");
-            });
-
-            
-});
-
-console.log(deleteLocation.value);
 const deletRest = async () => {
-    let url = `http://localhost:3000/locations/${deleteLocation.value}`;
-    await axios.delete(url)
+    const restId = props.deleteLocation.id;
+    store.commit('getAllcatygoriesIds', { locidIs: restId });
+    //Expacted Delet All This Whine Deal with Real API
+    let url_1 = `http://localhost:3000/items?locId=${restId}`;
+    await axios.get(url_1)
+        .then(response => {
+            for (let i = 0; i < response.data.length; i++) {
+                allItemsIdIs.value.push(response.data[i].id);
+            }
+        })
+        .catch(error => {
+            console.log(error, "M Err :-(");
+        });
+    let url_2 = `http://localhost:3000/locations/${restId}`;
+    await axios.delete(url_2)
         .then(async (res) => {
             let allCatsResults = [];
 
@@ -133,7 +115,7 @@ const deletRest = async () => {
                     })
                     .catch(error => {
                         allCatsResults.push(false);
-                        console.log(error , "M Err :-(");
+                        console.log(error, "M Err :-(");
                     });
             }
 
@@ -147,26 +129,25 @@ const deletRest = async () => {
                     })
                     .catch(error => {
                         allItemsResults.push(false);
-                        console.log(error , "M Err :-(");
+                        console.log(error, "M Err :-(");
                     });
             }
 
             if (res.status == 200 && !allCatsResults.includes(true) && !allItemsResults.includes(false)) {
                 successMessage.value = "Deleted successfully";
                 console.log(res);
-                setTimeout(() => {
-                    router.push({ path: "/my-rests" });
-                }, 2500);
+                emits('reloadData')
             } else {
-                console.log("your Status is: " , res.status);
+                console.log("your Status is: ", res.status);
                 console.table(res.data);
                 successMessage.value = "";
                 errorMessage.value = "Something went wrong, please try again later";
                 console.log("something went wrong !!!");
             }
+
         })
         .catch(error => {
-            console.log(error , "M Err :-(");
+            console.log(error, "M Err :-(");
         });
 }
 </script>

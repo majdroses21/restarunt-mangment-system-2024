@@ -1,52 +1,82 @@
 <template>
-    <div>
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li v-for="(tab, index) in tabs" :key="index" class="nav-item" role="presentation">
-                <button :class="{ 'nav-link': true, 'active': index === activeTabIndex }"
-                    :id="'pills-' + tab.toLowerCase() + '-tab'" data-bs-toggle="pill"
-                    :data-bs-target="'#pills-' + tab.toLowerCase()" type="button" role="tab"
-                    :aria-controls="'pills-' + tab.toLowerCase()" :aria-selected="index === activeTabIndex"
-                    @click="setActiveTab(index)">
-                    {{ tab }}
-                </button>
-            </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div v-for="(tab, index) in tabs" :key="index"
-                :class="{ 'tab-pane': true, 'fade': true, 'show': index === activeTabIndex }"
-                :id="'pills-' + tab.toLowerCase()" role="tabpanel" :aria-labelledby="'pills-' + tab.toLowerCase() + '-tab'"
-                tabindex="0">
-                <!-- محتوى العلامة -->
-                {{ tab }} Content
+    <div class="container " v-if="locationId">
+        <br>
+        <!-- Navigation links -->
+        <RouterLink :to="{ name: 'ViewCaty', params: { locationId: locationId } }" class="btn btn-primary float-start">
+            <font-awesome-icon :icon="['fas', 'plus']" /> View Categories
+        </RouterLink>
+        <RouterLink :to="{ name: 'AddItem', params: { locationId: locationId } }" class="btn btn-primary float-end"
+            v-if="store.state.numOfCategorys > 0">
+            Add New item <font-awesome-icon :icon="['fas', 'plus']" />
+        </RouterLink>
+    </div>
+
+    <div class="text-center">
+        <h1>
+            {{ store.state.locName }}
+        </h1>
+        <p class="text-muted"> {{ store.state.locAdrr }} </p>
+    </div>
+    <!-- Start Menu Loop Classic -->
+    <div class="clearfix">
+        <div class="each-caty container">
+            <div class="" v-for="(cat, c) in store.state.listOfCategorys" :key="c">
+                <div class="row col-12 ">
+                    <h3 class="bg-dark text-light"> {{ cat.name }} </h3>
+                </div>
+                <div class="row" v-if="locationId">
+                    <div class="ech-item col-4" v-for="(itm, i) in store.state.listOfItems" :key="i"
+                        v-show="cat.id == itm.catygoriID">
+                        <div v-if="cat.id == itm.catygoriID" class="">
+                            <h4 class="text-danger"> {{ itm.name }} </h4>
+                            <p class="item-desc" style="height: 144px;"> {{ itm.description }} </p>
+                            <div>
+                                <span class="item-price float-end">Available Qty: &nbsp;{{ itm.qey }}</span>
+                                <span class="item-price float-start">Price: <span class="text-warning fw-bold fw-bolder">{{
+                                    itm.price }} $</span></span>
+                                <br>
+                            </div>
+                            <div>
+                                <hr>
+                                <span class="item-price float-start">
+                                    <RouterLink
+                                        :to="{ name: 'UpdateItem', params: { itemId: itm.id, locationId: locationId } }"
+                                        class="btn btn-success">Update {{ locationId }}
+                                    </RouterLink>
+                                </span>
+                                <span class="item-price float-end">
+                                    <RouterLink
+                                        :to="{ name: 'DeleteItem', params: { itemId: itm.id, locationId: locationId } }"
+                                        class="btn btn-danger">Delete
+                                    </RouterLink>
+                                </span>
+                            </div>
+                            <br>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <br>
             </div>
         </div>
     </div>
-   
 </template>
-  
-
-
 
 <script setup>
-// Import 
-import { ref, onMounted, computed } from "vue";
+//Imnpor
+import { ref, onMounted } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
 let store = useStore();
+import { useRoute } from "vue-router";
 let route = useRoute();
-
-
 //Data
-let tabs = ref(['Home', 'Profile', 'Contact', 'Majd', 'Disabled']);
-let activeTabIndex = 0;
+console.log(store.state.loggedInUserId);
+// let userId = ref(store.state.loggedInUserId);
 let locationId = ref('');
-//-
-let getData = computed(()=>{
-    console.log(store.state.listOfCategorys );
-    return store.state.listOfCategorys
-})
-console.log(getData.effect.computed);
-//-
+// let getData = computed(()=>{
+//     console.log(store.state.listOfCategorys , "hheelloo");
+//     return store.state.listOfCategorys
+// })
 // Mounted
 onMounted(async () => {
     console.log("stor is", store);
@@ -64,18 +94,5 @@ onMounted(async () => {
 
     store.commit('displayAllItems', { locidIs: locationId.value });
 })
-
-
-//Methods
-const setActiveTab = (index) => {
-    activeTabIndex = index;
-}
-
-console.log(store.state.listOfCategorys );
 </script>
-  
-  
-<style>
-/* يمكنك إضافة أنماط تصميم Bootstrap هنا إذا لزم الأمر */
-</style>
-  
+

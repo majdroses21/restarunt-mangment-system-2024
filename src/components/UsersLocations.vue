@@ -20,9 +20,18 @@
                         <h6 class="card-title">{{ loc.num }}</h6>
                         <input type="hidden" v-model="loc.id">
 
-                        <router-link :to="{ name: 'DeletePage', params: { locationId: loc.id } }" class="btn btn-danger btn-action"><font-awesome-icon :icon="['far', 'trash-can']" /></router-link>
-                       
-                        <DeleteModal  :deleteLocation="loc.id" :restaruntName="loc.name" :key="loc.id" />
+                        <router-link :to="{ name: 'DeletePage', params: { locationId: loc.id } }"
+                            class="btn btn-danger btn-action"><font-awesome-icon
+                                :icon="['far', 'trash-can']" /></router-link>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger btn-action" data-bs-toggle="modal"
+                        @click="toDelete = loc"
+                            data-bs-target="#deleteModal">
+                            <font-awesome-icon :icon="['fas', 'trash-can']" />
+                        </button>
+
+                        <DeleteModal :deleteLocation="toDelete" @reloadData="$emit('reloadData')"/>
 
                         <router-link :to="{ name: 'UpdateLocation', params: { locationId: loc.id } }"
                             class="btn btn-success btn-action"><font-awesome-icon
@@ -36,7 +45,6 @@
         </div>
         <div class=" alert alert-warning" v-else> No Locations Yet !!!</div>
     </div>
-   
 </template>
 
 
@@ -79,9 +87,14 @@
 
 <script setup>
 import { RouterLink } from 'vue-router';
-import { defineProps } from "vue";
+import { defineProps, ref ,watch} from "vue";
 import DeleteModal from "@/components/locations/DeleteRestaruntModal.vue";
 
 const props = defineProps(["allLocations"]);
 
+const toDelete = ref({});
+
+watch(() => toDelete.value, (newVal) => {
+    console.log(newVal);
+},{deep:true})
 </script>
