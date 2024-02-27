@@ -1,59 +1,100 @@
 <template>
-        <div :class="{ slideBar: true, active: isSlideBareActive }">
-            <div class="top">
-                <div class="logo">
-                    <font-awesome-icon :icon="['fas', 'utensils']" class=" icon" />
-                    <span>&nbsp; RMS</span>
-                </div>
-                <span @click="toggleSlideBar()" id="btnMenu">
-                    <font-awesome-icon :icon="['fas', 'list']" class=" bar-icon" />
-                </span>
+    <div :class="{ slideBar: true, active: isSlideBareActive }">
+        <div class="top">
+            <div class="logo">
+                <font-awesome-icon :icon="['fas', 'utensils']" class=" iconX"
+                    style="background-color: transparent; color: var(--main-color);" />
+                <span>&nbsp; RMS</span>
             </div>
-            <ul>
-                <li>
-                    <router-link to="/">
-                        <font-awesome-icon :icon="['fas', 'house']" class="font-icon" />
-                        <span class="nav-item">&nbsp; Home</span>
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="">
-                        <font-awesome-icon :icon="['fas', 'dashboard']" class="font-icon" />
-                        <span class="nav-item">&nbsp; Dashboard</span>
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/my-rests">
-                        <font-awesome-icon :icon="['fas', 'utensils']" class="font-icon" />
-                        <span class="nav-item">&nbsp; My Restarunts</span>
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/profile">
-                        <font-awesome-icon :icon="['fas', 'user']" class="font-icon" />
-                        <span class="nav-item">&nbsp; Profile</span>
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/about">
-                        <font-awesome-icon :icon="['fas', 'circle-info']" class="font-icon" />
-                        <span class="nav-item">&nbsp; About</span>
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="">
-                        <font-awesome-icon :icon="['fas', 'gear']" class="font-icon" />
-                        <span class="nav-item">&nbsp; Setting</span>
-                    </router-link>
-                </li>
-                <li>
-                    <a @click="logMeOut()">
-                        <font-awesome-icon :icon="['fas', 'right-from-bracket']" class="font-icon" />
-                        <span class="nav-item">&nbsp; logOut</span>
-                    </a>
-                </li>
-            </ul>
+            <span @click="toggleSlideBar()" id="btnMenu">
+                <font-awesome-icon :icon="['fas', 'list']" class=" bar-icon" />
+            </span>
         </div>
+        <ul>
+            <li>
+                <router-link to="/">
+                    <font-awesome-icon :icon="['fas', 'house']" class="font-icon" />
+                    <span class="nav-item">&nbsp; Home</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/dashboard">
+                    <font-awesome-icon :icon="['fas', 'fa-tachometer-alt']" class="font-icon" />
+                    <span class="nav-item">&nbsp; Dashboard</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/my-rests">
+                    <font-awesome-icon :icon="['fas', 'utensils']" class="font-icon" />
+                    <span class="nav-item">&nbsp; My Restarunts</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/profile">
+                    <font-awesome-icon :icon="['fas', 'user']" class="font-icon" />
+                    <span class="nav-item">&nbsp; Profile</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/about">
+                    <font-awesome-icon :icon="['fas', 'circle-info']" class="font-icon" />
+                    <span class="nav-item">&nbsp; About</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="">
+                    <font-awesome-icon :icon="['fas', 'gear']" class="font-icon" />
+                    <span class="nav-item">&nbsp; Setting</span>
+                </router-link>
+            </li>
+            <li>
+                <a @click="logMeOut()">
+                    <font-awesome-icon :icon="['fas', 'right-from-bracket']" class="font-icon" />
+                    <span class="nav-item">&nbsp; logOut</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Bootom Nave -->
+    <nav class="bootom-nav d-none">
+        <ul>
+            <li>
+                <router-link to="/">
+                    <font-awesome-icon :icon="['fas', 'house']" class="font-icon" />
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/dashboard">
+                    <font-awesome-icon :icon="['fas', 'dashboard']" class="font-icon" />
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/my-rests">
+                    <font-awesome-icon :icon="['fas', 'utensils']" class="font-icon" />
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/profile">
+                    <font-awesome-icon :icon="['fas', 'user']" class="font-icon" />
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/about">
+                    <font-awesome-icon :icon="['fas', 'circle-info']" class="font-icon" />
+                </router-link>
+            </li>
+            <li>
+                <router-link to="">
+                    <font-awesome-icon :icon="['fas', 'gear']" class="font-icon" />
+                </router-link>
+            </li>
+            <li>
+                <a @click="logMeOut()">
+                    <font-awesome-icon :icon="['fas', 'right-from-bracket']" class="font-icon" />
+                </a>
+            </li>
+        </ul>
+    </nav>
 </template>
 
 <script setup>
@@ -90,6 +131,7 @@ const logMeOut = () => {
     padding: 0.4rem 0.8rem;
     transition: all 0.5s ease;
     z-index: 1;
+    /* border: red 1px solid; */
     /* display: none; */
 }
 
@@ -155,7 +197,7 @@ const logMeOut = () => {
 .slideBar ul li a {
     display: flex;
     color: #ffa600;
-    flex-direction: column; 
+    flex-direction: column;
     text-decoration: none;
     border-radius: 20px;
     margin-left: -25px;
@@ -167,7 +209,7 @@ const logMeOut = () => {
     /* margin-bottom: 10px; */
 }
 
-.slideBar.active ul li  a {
+.slideBar.active ul li a {
     font-size: large;
     flex-direction: row;
 }
@@ -181,6 +223,7 @@ const logMeOut = () => {
     min-width: 35px;
     height: 37px;
 }
+
 .slideBar.active .nav-item {
     opacity: 1;
 }
@@ -189,6 +232,50 @@ const logMeOut = () => {
     opacity: 0;
 }
 
+
+@media (max-width: 490px) {
+    .slideBar {
+        display: none;
+    }
+
+    .bootom-nav {
+        display: block !important;
+        position: fixed;
+        width: 100%;
+        height: 50px;
+        bottom: 0;
+        background-color: rgb(232, 231, 231);
+        border: #fff solid 1px;
+        list-style: none;
+        z-index: 1;
+    }
+
+    ul {
+        /* border: red solid 1px; */
+        margin-top: -15px;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+    }
+
+    ul li {
+        position: relative;
+        height: 50px;
+        margin: -10px;
+        margin-right: -12px;
+    }
+
+    ul li a {
+        color: var(--main-color);
+        border-radius: 20px;
+        margin-left: -25px;
+    }
+
+    ul li svg:hover {
+        background-color: var(--main-color);
+        height: 50px !important;
+        border-radius: 20px !important;
+        color: #fff;
+    }
+}
 </style>
-
-

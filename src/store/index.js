@@ -11,6 +11,9 @@ export default createStore({
     loggedInUserId: "",
     numOfCategorys: "",
     listOfCategorys: [],
+    allCategories: "",
+    allRestarunts: "",
+    allUserMeals: "",
     //
     listOfLocations: [],
     locName: "",
@@ -48,7 +51,7 @@ export default createStore({
       let url = `http://localhost:3000/categorys?userId=${paylaod.userId}&locationId=${paylaod.locId}`;
       await axios.get(url)
         .then(result => {
-          console.log(result.data , "Frome vueX" );
+          console.log(result.data, "Frome vueX");
           state.listOfCategorys = result.data;
           state.numOfCategorys = state.listOfCategorys.length;
         })
@@ -147,6 +150,39 @@ export default createStore({
         state.allCatysIdIs.push(resultCategories.data[c].id);
       }
     },
+    async getAllUserCategories(state) {
+      let url = `http://localhost:3000/categorys?userId=${state.loggedInUserId}`;
+      axios.get(url)
+        .then(result => {
+          state.allCategories = result.data.length
+          console.log(state.allCategories);
+        })
+        .catch(err => {
+          console.log("your Error is ", err);
+        })
+    },
+    async getAllUserRestarunts(state) {
+      let url = `http://localhost:3000/locations?userId=${state.loggedInUserId}`;
+      axios.get(url)
+        .then(result => {
+          state.allRestarunts = result.data.length
+          console.log(state.allRestarunts);
+        })
+        .catch(err => {
+          console.log("your Error is ", err);
+        })
+    },
+    async getAllUserMeals(state) {
+      let url = `http://localhost:3000/items?userId=${state.loggedInUserId}`;
+      axios.get(url)
+        .then(result => {
+          state.allUserMeals = result.data.length
+        })
+        .catch(err => {
+          console.log("your Error is ", err);
+        })
+    },
+
     setCategoris(state, payload) {
       state.listOfCategorys = payload;
       state.numOfCategorys = payload;
@@ -155,7 +191,7 @@ export default createStore({
     }
   },
   actions: {
-    
+
   },
   modules: {}
 })

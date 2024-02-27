@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">P O S</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
         aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,8 @@
         <form class="d-flex me-auto" role="search">
           <div class="nav-search">
             <input class="nav-inp" type="search" placeholder="Search" aria-label="Search">
-            <button class="" type="submit"><font-awesome-icon :icon="['fas', 'magnifying-glass']" class="font-icon" /></button>
+            <button class="" type="submit"><font-awesome-icon :icon="['fas', 'magnifying-glass']"
+                class="font-icon" /></button>
 
           </div>
         </form>
@@ -91,7 +92,7 @@ import ToggelBtn from "@/components/ToggelBtn.vue";
   font-size: 22px;
 }
 
-.nav-search{
+.nav-search {
   /* border:  red solid 2px; */
   position: relative;
   display: flex;
@@ -103,12 +104,14 @@ import ToggelBtn from "@/components/ToggelBtn.vue";
   border-top: solid 2px #ffa600;
   border-bottom: solid 2px red;
 }
-.nav-inp{
+
+.nav-inp {
   position: absolute;
   all: unset;
   width: 90%;
 }
-.nav-search > button{
+
+.nav-search>button {
   all: unset;
   cursor: pointer;
   width: 20%;

@@ -1,13 +1,24 @@
 <template>
-  <nav-bar> </nav-bar>
-  <slide-bar></slide-bar>
-  <router-view />
+  <MainLayout>
+    <template v-slot:body>
+      <router-view />
+    </template>
+  </MainLayout>
 </template>
 
 
-<script setup>
-import NavBar from './components/NavBar.vue';
-import SlideBar from "@/components/SlideBar.vue";
+<script >
+
+import MainLayout from "./layout/MainLayout.vue";
+
+export default{
+  components:{
+    MainLayout
+  },
+  // compatConfig: { MODE: 3 }
+  
+}
+
 /*
 const slid = document.querySelector(".slideBar");
 const app = document.querySelector("#app");
@@ -24,6 +35,7 @@ if (slid.classList("active")) {
 :root{
   --main-color: #ffa600;
   --main-color-opc: #ffa600b8;
+  /* --main-color-opcs: #eb2210; */
 }
 #app {
   /* border: var(--main-color) solid 5px; */
@@ -52,4 +64,10 @@ nav a.router-link-exact-active {
   border: red solid 5px;
 }
 
+@media (max-width: 490px) {
+  #app{
+    width: 100%;
+    margin-left: 0;
+  }
+}
 </style>

@@ -1,53 +1,120 @@
-
 <template>
-    <div>
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li v-for="(tab, index) in store.state.listOfCategorys" :key="index" class="nav-item" role="presentation">
-                <button :class="{ 'nav-link': true, 'active': index === activeTabIndex }"
-                    :id="'pills-' + tab.name.toLowerCase() + '-tab'" data-bs-toggle="pill"
-                    :data-bs-target="'#pills-' + tab.name.toLowerCase()" type="button" role="tab"
-                    :aria-controls="'pills-' + tab.name.toLowerCase()" :aria-selected="index === activeTabIndex"
-                    @click="setActiveTab(index)">
-                    {{ tab.name }}
-                </button>
-            </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div v-for="(tab, index) in store.state.listOfItems" :key="index"
-                v-show="store.state.listOfCategorys[activeTabIndex].id == tab.ctageoryID"
-                :class="{ 'nav-link': true, 'active': index === activeTabIndex }">
+    <b-tabs content-class="mt-3" align="center" v-if="store.state.listOfCategorys.length > 0">
+        <!-- This loop on All Categories -->
+        <b-tab :title="'All'">
+            <div class="container mt-3" align="center">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12 mt-1 mb-1" v-for="(itm, i) in store.state.listOfItems" :key="i">
+                        <div class="card" style="width: 17.9rem;">
+                            <img src="../../assets/images/download.png" class="card-img-top img-maeal" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ itm.name }}</h5>
+                                <p class="card-text">{{ itm.description }} </p>
+                            </div>
 
-                {{ tab }}
+                            <div class="card-body">
+                                <span class="float-start">Quantaty: <b>{{ itm.qey }}</b></span>
+                                <span class="float-end ">price: <b>{{ itm.price }} $</b></span>
+                            </div>
+                            <div class="card-body">
+                                <!-- Update Button Modal -->
+                                <button type="button" class="btn btn-outline-success m-1" data-bs-toggle="modal"
+                                    @click="toUpdate = itm" data-bs-target="#updateItemModal">
+                                    <font-awesome-icon :icon="['fas', 'pen-to-square']" />
+                                </button>
+
+
+
+                                <!-- Delete Button Modal -->
+                                <button type="button" class="btn btn-outline-danger m-1" data-bs-toggle="modal"
+                                    @click="toUpdate = itm" data-bs-target="#deleteItemModal">
+                                    <font-awesome-icon :icon="['fas', 'x']" />
+                                </button>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
+        </b-tab>
+
+        <!-- This Loop on the categories -->
+        <b-tab :title="cat.name" v-for="(cat, c) in store.state.listOfCategorys" :key="c">
+            <div class="container mt-3" align="center">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12 mt-1 mb-1" v-for="(itm, i) in store.state.listOfItems" :key="i"
+                        v-show="cat.id == itm.catygoriID">
+                        <div class="card" style="width: 17.9rem;">
+                            <img src="../../assets/images/download.png" class="card-img-top img-maeal" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ itm.name }}</h5>
+                                <p class="card-text">{{ itm.description }} </p>
+                            </div>
+
+                            <div class="card-body">
+                                <span class="float-start">Quantaty: <b>{{ itm.qey }}</b></span>
+                                <span class="float-end ">price: <b>{{ itm.price }} $</b></span>
+                            </div>
+                            <div class="card-body">
+                                <!-- Update Button Modal -->
+                                <button type="button" class="btn btn-outline-success m-1" data-bs-toggle="modal"
+                                    @click="toUpdate = itm" data-bs-target="#updateItemModal">
+                                    <font-awesome-icon :icon="['fas', 'pen-to-square']" />
+                                </button>
+
+
+
+                                <!-- Delete Button Modal -->
+                                <button type="button" class="btn btn-outline-danger m-1" data-bs-toggle="modal"
+                                    @click="toUpdate = itm" data-bs-target="#deleteItemModal">
+                                    <font-awesome-icon :icon="['fas', 'x']" />
+                                </button>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </b-tab>
+        <b-tab :title="'Show All categories'">
+            <ViewCaty />
+        </b-tab>
+    </b-tabs>
+    <div v-else>
+        <h1>You dont have any Meal </h1>
+        <h2>Creat a Catygory to Add meals to here</h2>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCatyModal">
+            <font-awesome-icon :icon="['fas', 'plus']" /> Add Catygory
+        </button>
+
+
+        <addCaty :locId="locationId" />
+
     </div>
+    <AddItem v-if="store.state.listOfCategorys.length > 0" />
+    <DeleteItem :deleteItem="toUpdate" />
+    <UpdateItem :updateItem="toUpdate" />
 </template>
   
-
-
-
 <script setup>
 // Import 
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
+import UpdateItem from "@/components/Menus/UpdateItemModal.vue";
+import AddItem from "@/components/Menus/AddItemModal.vue";
+import DeleteItem from "@/components/Menus/DeleteItemModal.vue";
+import addCaty from '@/components/catygoryies/AddNewCatygoryModal.vue';
+import ViewCaty from '@/components/catygoryies/ViewCaty.vue'
 let store = useStore();
 let route = useRoute();
-
-
 //Data
-let activeTabIndex = 0;
 let locationId = ref('');
-//-
-let getData = computed(() => {
-    console.log(store.state.listOfCategorys);
-    return store.state.listOfCategorys
-})
-console.log(getData.effect.computed);
-
-console.log(store.state.listOfCategorys);
-//-
-// Mounted
 onMounted(async () => {
     console.log("stor is", store);
     store.commit('isLoggedInUser');
@@ -60,21 +127,26 @@ onMounted(async () => {
 
     store.commit('canUserAccessThisLocation', { locationIdIs: locationId.value });
 
-    store.commit('getLocationInfo', { locidIs: locationId.value });
-
     store.commit('displayAllItems', { locidIs: locationId.value });
 })
+//watch
+const toUpdate = ref({});
+watch(
+    () => toUpdate.value, (newValue) => {
+        console.log(newValue);
+    }, { deep: true }
+)
+</script>  
 
-
-//Methods
-const setActiveTab = (index) => {
-    activeTabIndex = index;
+<style >
+@import "../../assets/css/forms.css";
+@media (max-width: 490px) {
+    .img-maeal {
+        margin-top: 52px;
+        z-index: 0;
+    }
+    .card-text {
+        color: #000;
+    }
 }
-
-</script>
-  
-  
-<style>
-/* يمكنك إضافة أنماط تصميم Bootstrap هنا إذا لزم الأمر */
 </style>
-  

@@ -5,8 +5,8 @@
                 <span>
                     List Of locattions {{ props.allLocations.length }}
                 </span> &nbsp;
-                <span>
-                    <RouterLink class="btn btn-danger" to="/deleteAll">Delete All</RouterLink>
+                <span class="float-end">                   
+                        <DeleteAll @reloadData="$emit('reloadData')" />
                 </span>
             </caption>
             <div class="col-lg-4 col-md-6 col-sm-12 " v-for="loc in props.allLocations" :key="loc.id">
@@ -16,29 +16,33 @@
                     </div>
                     <div class="card-body" style="margin-right:30px;">
                         <h4 class="card-title">{{ loc.name }}</h4>
-                        <p class="card-texst">{{ loc.addr }}</p>
-                        <h6 class="card-title">{{ loc.num }}</h6>
+                        <p class="card-title text-dark">{{ loc.addr }}</p>
+                        <h6 class="card-title text-secondary">{{ loc.num }}</h6>
                         <input type="hidden" v-model="loc.id">
 
-                        <router-link :to="{ name: 'DeletePage', params: { locationId: loc.id } }"
-                            class="btn btn-danger btn-action"><font-awesome-icon
-                                :icon="['far', 'trash-can']" /></router-link>
-
-                        <!-- Button trigger modal -->
+                        <!-- Button trigger modal *Delete* -->
                         <button type="button" class="btn btn-danger btn-action" data-bs-toggle="modal"
-                        @click="toDelete = loc"
+                        @click="toDelete = loc" id="btnDeleteModal"
                             data-bs-target="#deleteModal">
                             <font-awesome-icon :icon="['fas', 'trash-can']" />
+                        </button>
+                        
+                        <!-- Button trigger modal *Update* -->
+                        <button type="button" class="btn btn-success btn-action" data-bs-toggle="modal"
+                        @click="toUpdate = loc" id="btnDeleteModal"
+                            data-bs-target="#updateModal">
+                            <font-awesome-icon :icon="['fas', 'pen-to-square']" />
                         </button>
 
                         <DeleteModal :deleteLocation="toDelete" @reloadData="$emit('reloadData')"/>
 
-                        <router-link :to="{ name: 'UpdateLocation', params: { locationId: loc.id } }"
-                            class="btn btn-success btn-action"><font-awesome-icon
-                                :icon="['fas', 'pen-to-square']" /></router-link>
+                        <UpdateRest :updateRest="toUpdate" @reloadData="$emit('reloadData')"/>
+
+
                         <router-link :to="{ name: 'ViewMenu', params: { locationId: loc.id } }"
-                            class="btn btn-action btn-menu"> <span class="show-hover-name"></span> <font-awesome-icon
-                                :icon="['fa', 'table-list']" /></router-link>
+                            class="btn btn-action btn-menu">
+                              <font-awesome-icon :icon="['fa', 'table-list']" />
+                            </router-link>
                     </div>
                 </div>
             </div>
@@ -83,18 +87,49 @@
 .btn-menu:hover {
     background-color: var(--main-color);
 }
+@media (max-width: 490px) {
+    .img-cont{
+        margin-top: 75px;
+    }   
+}
 </style>
 
 <script setup>
 import { RouterLink } from 'vue-router';
 import { defineProps, ref ,watch} from "vue";
 import DeleteModal from "@/components/locations/DeleteRestaruntModal.vue";
+import DeleteAll from "@/components/locations/DeleteAllRestsModal.vue";
+import UpdateRest from "@/components/locations/UpdateRestModal.vue";
 
 const props = defineProps(["allLocations"]);
 
 const toDelete = ref({});
 
-watch(() => toDelete.value, (newVal) => {
+const toUpdate = ref({});
+
+const textToCofirm = "Delete Restaurant";
+
+
+
+watch(
+    () => toDelete.value, (newVal) => {
+    console.log(newVal);
+    // let userTextToCofirm = ref(document.getElementById('userConfirm'));
+    let userTextToCofirm = ref('Delete Restaurant');
+    const btnDelete = ref(document.getElementById('btnDelete'));
+    console.log(btnDelete.value);
+    
+    if (textToCofirm == userTextToCofirm.value) {
+        btnDelete.value.removeAttribute("disabled");
+        console.log("Hello Delete!");
+
+    }else{
+        console.log("dissss");
+    }
+},{deep:true})
+
+watch(
+    () => toUpdate.value, (newVal) => {
     console.log(newVal);
 },{deep:true})
 </script>

@@ -22,14 +22,14 @@
                                     v-model="state.name">
                             </div>
                             <span class="validate-style" v-if="v$.name.$error"> {{ v$.name.$errors[0].$message }}</span>
-                           <!-- Num -->
+                            <!-- Num -->
                             <div class="input-container">
                                 <font-awesome-icon :icon="['fas', 'phone']" class=" icon" />
                                 <input type="number" class="form-control" placeholder="Phone Number" name="num"
                                     v-model="state.num">
                             </div>
                             <span class="validate-style" v-if="v$.num.$error"> {{ v$.num.$errors[0].$message }}</span>
-                           <!-- Decsraptio -->
+                            <!-- Decsraptio -->
                             <div class="input-container">
                                 <font-awesome-icon :icon="['fas', 'map-location-dot']" class=" icon" />
                                 <textarea class="form-control" placeholder="Address" name="addr"
@@ -49,7 +49,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeAdd">Close</button>
                     <button type="button" class="btn btn-add" @click="add()">Add New</button>
                 </div>
             </div>
@@ -59,16 +59,18 @@
 
 <script setup>
 // Import
-import router from "@/router";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength } from '@vuelidate/validators';
 import axios from 'axios';
-import { ref, computed } from "vue";
-
+import { ref, computed, defineEmits } from "vue";
+import { useStore } from "vuex";
 //Data
 let errorMessage = ref('');
 let successMessege = ref('');
-let userId = ref('');
+let store = useStore();
+store.commit('isLoggedInUser');
+let userId = ref(store.state.loggedInUserId);
+
 
 // Validations
 let state = ref({
@@ -86,10 +88,13 @@ let rules = computed(() => {
 });
 
 let v$ = useVuelidate(rules, state);
+// Emits
+const emits = defineEmits(['reloadData']);
+
 //Methods
 const add = async () => {
     // Check if all inputs values are valid
-    v$.value.$validate();  
+    v$.value.$validate();
     if (!v$.value.$error) {
         let url = `http://localhost:3000/locations`;
         let params = {
@@ -102,15 +107,18 @@ const add = async () => {
         await axios.post(url, params)
             .then(() => {
                 setTimeout(() => {
+                    //Remove All inputs values For the New Restarunt
                     state.value.name = '',
                         state.value.num = '',
                         state.value.addr = '',
                         userId.value = userId,
-                        router.push({ path: "/my-rests" })
-                }, 2000);
+                        //Re get the data For Show the New Modal
+                        emits('reloadData');
+                    //Close The Modal Beforn Add The Datata 
+                    document.getElementById("closeAdd").click();
+                }, 1000);
                 errorMessage.value = "";
                 successMessege.value = "Your data has been regestred successfully"; // res.data.msg => with php requst
-                // console.table("OK", response.data);
             })
             .catch(err => {
                 errorMessage.value = "Something went wrong";
@@ -123,64 +131,10 @@ const add = async () => {
         successMessege.value = "";
         errorMessage.value = "You Must fill in all the required fields";
     }
+   
 }
-// Mounted
-let user = localStorage.getItem("user-info");
-!user ? router.push({ path: "/my-rests" }) : userId.value = JSON.parse(user).id;
-
 </script>
 
 <style scoped>
-* {
-    box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
-}
-
-/* Style the input container */
-.input-container {
-    display: flex;
-    width: 100%;
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
-
-/* Style the form icons */
-.icon {
-    padding: 10px;
-    background: var(--main-color);
-    color: white;
-    min-width: 50px;
-    text-align: center;
-}
-
-/* Validation Stailing */
-.validate-style {
-    color: red;
-    margin-bottom: -30px;
-}
-
-.btn-plus{
-    width: 50px;
-    height: 50px;
-    background-color: var(--main-color);
-    border-radius: 50%;
-    position: fixed;
-    bottom: 50px;
-    right: 70px;
-    color: #fff;
-    z-index: 2;
-}
-.btn-plus:hover{
-    background-color: var(--main-color-opc);
-}
-.btn-add{
-    background-color: var(--main-color);
-    color: #fff;
-}
-.btn-add:hover{
-    background-color: var(--main-color-opc);
-}
+/* @import "../../assets/css/Item-Form.css"; */
 </style>
-
-

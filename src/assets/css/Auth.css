@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+  }
+  .cont {
+    display: flex;
+    position: relative; 
+  }
+  
+  /* Style the input container */
+  .input-container {
+    /* display: flex; */
+    /* width: 100%; */
+    margin-bottom: 15px;
+  }
+  
+  /* Style the form icons */
+  .form-containar {
+    width: 50%;
+    transform: translateY(30%);
+  }
+  
+  .img-conainar {
+    width: 40%;
+    transform: translateY(10%);
+    z-index: -1;
+  }
+  
+  /* Set a style for the submit button */
+  .btni {
+    background-color: #ffa600;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+    border-radius: 30px;
+    margin-top: 10px;
+    opacity: 0.9;
+  }
+  
+  .btni:hover {
+    opacity: 1;
+  }
+  @media (max-width: 480px) {
+    .form-containar{
+      /* display: none; */
+      width: 100%;
+      background-color: rgba(128, 128, 128, 0.474);
+      backdrop-filter: blur(1.7px);
+    }
+    .img-conainar{
+      /* border: red solid 1px; */
+      width: 70%;
+      position: absolute;
+      left: 33px;
+    }
+    img{
+      width: 100%;
+      text-align: center;
+      align-items: center;
+      transform: translateX(40px);
+      transform: translateY(-40px);
+      z-index: 1;
+    }
+    h1 , p{
+      color: #fff;
+    }
+  }
+  @media (min-width:490px) and (max-width:1280px) {
+    .form-containar{
+    width: 100%;  
+    /* display: none; */
+    }
+    .img-conainar{
+      /* width: 50%; */
+      position: absolute;
+      /* transform: translateX(20%); */
+      transform: translateY(70%);
+      left: 15%;
+      
+    }
+  }
+  .validate-style {
+    color: red;
+    margin-bottom: -30px;
+  }

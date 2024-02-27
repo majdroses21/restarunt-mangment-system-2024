@@ -1,8 +1,7 @@
 <template>
     <br>
-        <AddnewlocationModal />
-        <UsersLocations :allLocations="listOfLocations" @reloadData="GetRestarunts"/>
-    
+    <AddnewlocationModal @reloadData="GetRestarunts" />
+    <UsersLocations :allLocations="listOfLocations" @reloadData="GetRestarunts" />
 </template>
 
 <script setup>
@@ -12,12 +11,12 @@ import axios from 'axios';
 
 // Data
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-
-let userId = ref('');
+import { useStore } from "vuex";
+const store = useStore();
+let userId = ref(store.state.loggedInUserId);
 let listOfLocations = ref([]);
-const GetRestarunts = async () =>{
-     let url = `http://localhost:3000/locations?userId=${userId.value}`
+const GetRestarunts = async () => {
+    let url = `http://localhost:3000/locations?userId=${userId.value}`
     let response = await axios.get(url)
         .then(response => {
             console.log(response + "ok");
@@ -37,15 +36,8 @@ const GetRestarunts = async () =>{
 
 
 onMounted(async () => {
-    let router = useRouter();
-    let user = localStorage.getItem("user-info");
-    if (!user) {
-        router.push({ path: "/login" });
-    } else {
-        userId.value = JSON.parse(user).id;
-        console.log(userId.value);
-    }
-   await GetRestarunts();
+    store.commit('isLoggedInUser');
+    await GetRestarunts();
 
 })
 </script>

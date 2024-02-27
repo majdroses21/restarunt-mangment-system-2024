@@ -1,0 +1,120 @@
+/* This Class are used in all Forms */
+* {
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+/* Style the input container */
+.input-container , .form-floating {
+    display: flex;
+    width: 100%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+/* Style The Form Icons */
+.icon {
+    padding: 10px;
+    background: var(--main-color);
+    color: white;
+    min-width: 50px;
+    min-height: 20px;
+    margin-top: 7px;
+    text-align: center;
+}
+
+
+
+/* Add {{ Stuff }} Modal */
+
+/* This is the btn to Add A new think */
+.btn-plus {
+    width: 50px;
+    height: 50px;
+    background-color: var(--main-color) !important;
+    border-radius: 50% !important;
+    position: fixed;
+    bottom: 50px;
+    right: 70px;
+    color: #fff !important;
+    z-index: 2;
+}
+.btn-plus:hover {
+    background-color: var(--main-color-opc) !important;
+}
+
+/* This is The BTN to add a new item in the Modal */
+.btn-add {
+    background-color: var(--main-color) !important;
+    color: #ebe4e4 !important;
+}
+.btn-add:hover {
+    background-color: var(--main-color-opc) !important;
+}
+
+
+/* Update {{ Stuff }} Modal */
+.edit {
+    position: absolute;
+    top: -25px;
+    margin-left: -30px;
+    background-color: #198754;
+    color: #fff;
+    font-size: 37px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+.modal-update {
+    border-top: solid 7px #198754;
+}
+/* todo: this is spesfactedfor [update so you car move`t to update page Vue */
+.modal-footer {
+    background-color: rgb(232, 231, 231);
+}
+
+/* Delete {{ Stuff }} Modal */
+
+.trash {
+    position: absolute;
+    top: -25px;
+    left: 210px;
+    background-color: #dc3545;
+    color: #fff;
+    font-size: 37px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    text-align: center;
+}
+.modal-delete {
+    border-top: solid 7px #dc3545;
+}
+
+/* todo: اتأكد اذا هي صح مكانها هون */
+.btn-action {
+    border-radius: 50%;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+
+/* Validation Forms Stayling */
+.validate-style {
+    color: red;
+    margin-bottom: -30px;
+}
+
+@media (max-width: 490px) {
+   .btn-plus{
+    bottom: 72px;
+    right: 30px;
+   }
+   .trash {
+    margin-left: -30px;
+   }
+}
+
+
+
