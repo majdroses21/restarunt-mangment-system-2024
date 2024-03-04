@@ -36,101 +36,6 @@ ul {
 }
 </style>
 
-<!--  
-<script setup>
-//Import
-import axios from "axios";
-import { ref, defineProps } from "vue";
-import { useStore } from "vuex";
-let store = useStore();
-
-const props = defineProps({
-    deleteCaty: {
-        type: Object,
-        required: true
-    },
-});
-
-//Data
-let st = store.state;
-let successMessage = ref('');
-let errorMessage = ref('');
-let allItemsIdIs = ref([]);
-
-
-const deletCaty = async () => {
-
-    const restId = props.deleteCaty.id;
-    store.commit('getAllcatygoriesIds', { locidIs: restId });
-    //Expacted Delet All This Whine Deal with Real API
-    let url_1 = `http://localhost:3000/items?locId=${restId}`;
-    await axios.get(url_1)
-        .then(response => {
-            for (let i = 0; i < response.data.length; i++) {
-                allItemsIdIs.value.push(response.data[i].id);
-            }
-        })
-        .catch(error => {
-            console.log(error, "M Err :-(");
-        });
-    let url_2 = `http://localhost:3000/locations/${restId}`;
-    await axios.delete(url_2)
-        .then(async (res) => {
-            let allCatsResults = [];
-
-            for (let cats = 0; cats < allItemsIdIs.value.length; cats++) {
-                let catUrl = `http://localhost:3000/categorys/${store.state.allCatysIdIs[cats]}`;
-                await axios.delete(catUrl)
-                    .then(() => {
-                        allCatsResults.push(true);
-                    })
-                    .catch(error => {
-                        allCatsResults.push(false);
-                        console.log(error, "M Err :-(");
-                    });
-            }
-
-            let allItemsResults = [];
-
-            for (let itms = 0; itms < allItemsIdIs.value.length; itms++) {
-                let itemUrl = `http://localhost:3000/items/${allItemsIdIs.value[itms]}`;
-                await axios.delete(itemUrl)
-                    .then(() => {
-                        allItemsResults.push(true);
-                    })
-                    .catch(error => {
-                        allItemsResults.push(false);
-                        console.log(error, "M Err :-(");
-                    });
-            }
-
-            if (res.status == 200 && !allCatsResults.includes(true) && !allItemsResults.includes(false)) {
-                successMessage.value = "Deleted successfully";
-                console.log(res);
-                successMessage.value = "Deleted successfully";
-                setTimeout(() => {
-                    document.getElementById('btnClose').click();
-                    successMessage.value = "";
-                    //  emits('reloadData'); // useStore here
-                }, 1000);
-            } else {
-                console.log("your Status is: ", res.status);
-                console.table(res.data);
-                successMessage.value = "";
-                errorMessage.value = "Something went wrong, please try again later";
-                console.log("something went wrong !!!");
-            }
-
-        })
-        .catch(error => {
-            console.log(error, "M Err :-(");
-        });
-}
-</script>
--->
-
-
-
 <script setup>
 //Import
 import { ref ,onMounted, defineProps ,toRef } from "vue";
@@ -145,7 +50,7 @@ const props = defineProps({
     },
 });
 //Data
-store.commit('isLoggedInUser');
+store.commit('getUserId');
 let successMessage = ref('');
 let errorMessage = ref('');
 
@@ -159,7 +64,7 @@ onMounted(async () => {
 
 const deleteCaty = async () => {
     let catygoriID = toRef(props.deleteCaty.id);
-    store.commit('getAllItemsIds', {catidIs: catygoriID.value})
+    store.dispatch('getAllItemsIds', {catidIs: catygoriID.value})
     console.log("all items are: ", store.state.allItemsIdIs);
     let url = `http://localhost:3000/categorys/${catygoriID.value}`;
     await axios.delete(url)
@@ -190,7 +95,7 @@ const deleteCaty = async () => {
         setTimeout(() => {
           successMessage.value = "";
           document.getElementById('btnClose').click();
-          store.commit('displayAllCategorys', { userId: props.deleteCaty.userId, locId: props.deleteCaty.locationId });
+          store.dispatch('doDisplayAllCategorys', { userId: props.deleteCaty.userId, locId: props.deleteCaty.locationId });
         }, 1000)
     } else {
         successMessage.value = "";

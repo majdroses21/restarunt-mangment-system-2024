@@ -103,7 +103,7 @@ let route = useRoute();
 
 //Datat
 let st = store.state;
-store.commit('isLoggedInUser');
+store.commit('getUserId');
 let userId = ref(store.state.loggedInUserId); 
 let successMessage = ref('');
 let errorMessage = ref('');
@@ -123,9 +123,9 @@ onMounted(async () => {
 
     locationId.value = parseInt(route.params.locationId);
 
-    store.commit('getLocationInfo', { locidIs: locationId.value });
+    store.dispatch('getLocationInfo', { locidIs: locationId.value });
 
-    store.commit('displayAllCategorys', { userId: userId.value, locId: locationId.value });
+    store.dispatch('doDisplayAllCategorys', { userId: userId.value, locId: locationId.value });
 
 
 });
@@ -150,7 +150,7 @@ const updateItem = async () => {
             successMessage.value = "Item successfully Updated";
             setTimeout(() => {
                 successMessage.value = "";
-                store.commit('displayAllItems', { locidIs: locationId.value });
+                store.dispatch('displayAllItems', { locidIs: locationId.value });
                 document.getElementById('closeUmodal').click();
             }, 1000);
         })

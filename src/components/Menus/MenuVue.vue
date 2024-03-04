@@ -117,17 +117,17 @@ let route = useRoute();
 let locationId = ref('');
 onMounted(async () => {
     console.log("stor is", store);
-    store.commit('isLoggedInUser');
+    store.commit('getUserId');
 
     locationId.value = route.params.locationId;
 
     console.log(route.params);
     let usID = JSON.parse(localStorage.getItem("user-info")).id;
-    store.commit('displayAllCategorys', { userId: usID, locId: locationId.value });
+    store.dispatch('doDisplayAllCategorys', { userId: usID, locId: locationId.value });
 
-    store.commit('canUserAccessThisLocation', { locationIdIs: locationId.value });
+    store.dispatch('doCanUserAccessThisLocation', { locationIdIs: locationId.value });
 
-    store.commit('displayAllItems', { locidIs: locationId.value });
+    store.dispatch('displayAllItems', { locidIs: locationId.value });
 })
 //watch
 const toUpdate = ref({});

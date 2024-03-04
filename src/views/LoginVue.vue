@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <NavbarAuth/>
+    <NavbarAuth />
     <div class="cont">
       <div class="img-conainar">
         <img src="../assets/images/data.gif" alt="">
@@ -37,9 +37,10 @@
 import { useVuelidate } from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
 import { ref, computed } from "vue";
-import axios from "axios";
-import { useRouter } from 'vue-router';
 import NavbarAuth from "@/components/NavbarAuth.vue";
+import { useStore } from "vuex";
+import router from '@/router';
+let store = useStore();
 
 // Data
 const state = ref({
@@ -64,51 +65,22 @@ const v$ = useVuelidate(rules, state);
 
 
 const userLogin = async () => {
-  v$.value.$validate();
+  const result = await v$.value.$validate();
   // if No Err
-  if (!v$.value.$error) {
-    console.log("Tamaamaan");
-    //
-    // let url = `http://localhost/rest-system-2024%20-%20classic/src/API/auth/logIn.php`;
-    let url = `http://localhost:3000/users?email=${state.value.email}&pswd=${state.value.psw}`;
-
-    let params = {
-      email: state.value.email,
-      pass: state.value.psw
-    }
-    await axios.get(url, params)
-      .then(response => {
-        // يتم التعامل مع الاستجابة هنا
-        console.log(response.data);
-        console.log("Done :-)");
-        console.table(response);
-        console.table(response.data);
-        localStorage.setItem("user-info", JSON.stringify(response.data[0]));
-        router.push({ path: "/" });
-      })
-      .catch(error => {
-        // يتم التعامل مع الخطأ هنا
-        console.error(error);
-        console.log(error + "Erroooor");
-        console.table(error);
-        userNotfoundError.value = "user not found 404 :-(";
-      });
-    console.log("logged In");
+  if (result) {
+    
+   const res = await  store.dispatch('logIn', state.value);
+   if (res) {
+   setTimeout(() => {
+    router.push({path: '/'})
+   }, 200);
+   }
   } else {
     console.log("Mesh Tamam Khales");
     userNotfoundError.value = "User not found 404";
   }
 }
-
-// Mounted
-const user = localStorage.getItem("user-info");
-const router = useRouter();
-
-if (user) {
-  router.push({ path: "/" });
-}
 </script>
-
 
 <style scoped>
 @import '../assets/css/Auth.css';

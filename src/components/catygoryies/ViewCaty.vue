@@ -70,16 +70,16 @@ import UpdateCaty from '@/components/catygoryies/UpdateCatyModal.vue';
 import DeleteAll from '@/components/catygoryies/DeleteAllCategories.vue'
 let route = useRoute();
 let store = useStore();
-store.commit('isLoggedInUser');
+store.commit('getUserId');
 //Data
 
 let locationId = route.params.locationId;
 let userId = ref(store.state.loggedInUserId);
 //Mounted
 onMounted(async () => {
-    store.commit('canUserAccessThisLocation', { locationIdIs: locationId });
+    store.dispatch('doCanUserAccessThisLocation', { locationIdIs: locationId });
 
-    store.commit('displayAllCategorys', { userId: userId.value, locId: locationId });
+    store.dispatch('doDisplayAllCategorys', { userId: userId.value, locId: locationId });
 });
 
 //Wach

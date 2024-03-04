@@ -1,6 +1,7 @@
 <template>
-    <NavBar v-if="store.state.isUserlogedin" />
-    <slide-bar v-if="store.state.isUserlogedin"></slide-bar>
+    <NavBar v-if="store.state.isAuthenticated" />
+    <slide-bar v-if="store.state.isAuthenticated"></slide-bar>
+    <!-- <h1 class="text-warning">{{this.$store.state.isAuthenticated }}</h1> -->
     <!-- navbar if user logged -->
     <!-- // layout -->
     <div>
@@ -19,6 +20,6 @@ import SlideBar from "@/components/SlideBar.vue";
 
 let store = useStore();
 onMounted(() => {
-    store.commit('isLoggedInUser');
+    store.commit('Authentication');
 })
 </script>

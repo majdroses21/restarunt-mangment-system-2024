@@ -131,7 +131,7 @@ let v$ = useVuelidate(rulses, state);
 
 //Datat
 let st = store.state;
-store.commit('isLoggedInUser');
+store.commit('getUserId');
 let userId = ref(store.state.loggedInUserId);console.log("your userId is: ", userId.value);
 let successMessege = ref('');
 let errorMessage = ref('');
@@ -147,9 +147,9 @@ onMounted(async () => {
 
     locationId.value = parseInt(route.params.locationId);
 
-    store.commit('getLocationInfo', { locidIs: locationId.value });
+    store.dispatch('getLocationInfo', { locidIs: locationId.value });
 
-    store.commit('displayAllCategorys', { userId: userId.value, locId: locationId.value });
+    store.dispatch('doDisplayAllCategorys', { userId: userId.value, locId: locationId.value });
 
 
 });
@@ -179,7 +179,7 @@ const addItem = async () => {
                 errorMessage.value = "";
                 successMessege.value = "Item successfully send"
                 setTimeout(() => {
-                    store.commit('displayAllItems', { locidIs: locationId.value });
+                    store.dispatch('displayAllItems', { locidIs: locationId.value });
                     successMessege.value ="";
                     document.getElementById('closeAdd').click();
                 }, 1000);

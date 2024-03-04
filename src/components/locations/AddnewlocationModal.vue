@@ -68,7 +68,7 @@ import { useStore } from "vuex";
 let errorMessage = ref('');
 let successMessege = ref('');
 let store = useStore();
-store.commit('isLoggedInUser');
+store.commit('getUserId');
 let userId = ref(store.state.loggedInUserId);
 
 

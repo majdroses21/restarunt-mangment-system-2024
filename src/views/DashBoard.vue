@@ -88,7 +88,7 @@
             <div class="card">
                 <h5 class="card-header">Featured</h5>
                 <div class="card-body">
-                    <ChartVue />
+                    <ChartVue :allMeals="store.state.allUserMeals" />
                 </div>
             </div>
         </div>
@@ -100,10 +100,10 @@ import ChartVue from '../components/charts/ChartVue';
 import { useStore } from "vuex";
 
 let store = useStore();
-
-store.commit('getAllUserCategories');
-store.commit('getAllUserRestarunts');
-store.commit('getAllUserMeals');
+store.commit('getUserId');
+store.dispatch('doGetAllUserCategories');
+store.dispatch('doGetAllUserRestarunts');
+store.dispatch('doGetAllUserMeals');
 
 
 </script>

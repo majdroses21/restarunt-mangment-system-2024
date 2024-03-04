@@ -36,7 +36,7 @@ const GetRestarunts = async () => {
 
 
 onMounted(async () => {
-    store.commit('isLoggedInUser');
+    store.commit('getUserId');
     await GetRestarunts();
 
 })

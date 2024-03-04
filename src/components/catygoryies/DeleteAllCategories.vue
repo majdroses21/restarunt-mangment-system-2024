@@ -49,13 +49,13 @@ import { useRoute } from "vue-router";
 let store = useStore();
 let route = useRoute();
 //Data
-store.commit('isLoggedInUser');//
+store.commit('getUserId');//
 let locationId = ref(route.params.locationId);
 let successMessage = ref('');
 let errorMessage = ref('');
 
 //Methods
-store.commit('getAllcatygoriesIds', { locidIs: locationId.value });
+store.dispatch('getAllcatygoriesIds', { locidIs: locationId.value });
 const deletAllRests = async () => {
     let allCatsResults = [];
     let allItemsResults = [];

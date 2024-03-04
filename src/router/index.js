@@ -1,7 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-
+import { createRouter, createWebHistory } from 'vue-router';
 import AboutView from '../views/AboutView.vue';
-
 
 // Register 
 import SinupVue from '../views/SinupVue.vue';
@@ -83,8 +81,21 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+// let user = localStorage.getItem("user-info");
+
+
+
+
+
+
+import  store  from '../store/';
+store.commit('Authentication');
+console.log("store from route " , store);
+let isAuthenticated =  store.state.isAuthenticated;
+// console.log(store.state.isAuthenticated);
 router.beforeEach((to, from, next) => {
+
   if (to.params.pageTitle !== undefined) {
     // if page title is empty or
     document.title = `${to.params.pageTitle} | ${process.env.VUE_APP_TITLE}`;
@@ -95,6 +106,13 @@ router.beforeEach((to, from, next) => {
       document.title = `${to.name} | ${process.env.VUE_APP_TITLE}`;
     }
   }
-  next();
+
+  if (to.name != 'LoginForm' && to.name != 'Sinup' && !isAuthenticated){
+     next('/login');
+    return
+  } else{
+     next()
+  }
+ return next()
 });
 export default router

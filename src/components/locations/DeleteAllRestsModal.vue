@@ -54,7 +54,7 @@ import { ref, onMounted, defineEmits } from "vue";
 import { useStore } from "vuex";
 let store = useStore();
 // Data
-store.commit('isLoggedInUser');
+store.commit('getUserId');
 let st = store.state;
 let userId = ref(st.loggedInUserId);
 let successMessage = ref('');

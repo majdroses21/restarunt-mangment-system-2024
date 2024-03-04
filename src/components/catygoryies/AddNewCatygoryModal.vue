@@ -39,7 +39,7 @@ import { required, minLength, maxLength } from '@vuelidate/validators';
 import { useStore } from "vuex";
 let store = useStore();
 //Data
-store.commit('isLoggedInUser'); //
+store.commit('getUserId'); //
 let userId = ref(store.state.loggedInUserId);
 let successMessage = ref('');
 let errorMessage = ref('');
@@ -59,8 +59,8 @@ let rulses = computed(() => {
 const v$ = useVuelidate(rulses, state);
 //Mounted
 onMounted(() => {
-    store.commit('getLocationInfo', { locidIs: locationId.value })
-    store.commit('displayAllCategorys', { userId: userId.value, locId: locationId.value })
+    store.dispatch('getLocationInfo', { locidIs: locationId.value })
+    store.dispatch('doDisplayAllCategorys', { userId: userId.value, locId: locationId.value })
 
 });
 //Methods
@@ -88,7 +88,7 @@ const addCaty = async () => {
                     successMessage.value = "Added New category Successfully";
                     setTimeout(() => {
                         document.getElementById("closeAddCay").click();
-                        store.commit('displayAllCategorys', { userId: userId.value, locId: locationId.value });
+                        store.dispatch('doDisplayAllCategorys', { userId: userId.value, locId: locationId.value });
                         successMessage.value = "";
                         state.value.name = "";
                     }, 1000);

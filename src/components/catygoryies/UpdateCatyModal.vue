@@ -52,7 +52,7 @@ const props = defineProps({
     }
 })
 //Data
-store.commit('isLoggedInUser');
+store.commit('getUserId');
 let userId = ref(store.state.loggedInUserId);
 
 
@@ -65,7 +65,7 @@ const updateCaty = async () => {
 
     let catygoriID = toRef(props.updateCaty.id)
     let locationId = toRef(props.updateCaty.locationId);
-    store.commit('displayAllCategorys', { userId: userId.value, locId: locationId.value });
+    store.dispatch('doDisplayAllCategorys', { userId: userId.value, locId: locationId.value });
     console.log(store.state.listOfCategorys);
 
     let filterCatyName = store.state.listOfCategorys.filter((v) => v.name.toLocaleLowerCase() == catyName.value.toLocaleLowerCase());
@@ -89,7 +89,7 @@ const updateCaty = async () => {
                     setTimeout(() => {
                         successMessage.value = "";
                         document.getElementById("closeModel").click();
-                        store.commit('displayAllCategorys', { userId: userId.value, locId: locationId.value });
+                        store.dispatch('doDisplayAllCategorys', { userId: userId.value, locId: locationId.value });
 
                     }, 1000);
                 })

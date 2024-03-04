@@ -74,7 +74,7 @@ let userTextConfimInput = ref('');
 const deletRest = async () => {
 
     const restId = props.deleteLocation.id;
-    store.commit('getAllcatygoriesIds', { locidIs: restId });
+    store.dispatch('getAllcatygoriesIds', { locidIs: restId });
     //Expacted Delet All This Whine Deal with Real API
     let url_1 = `http://localhost:3000/items?locId=${restId}`;
     await axios.get(url_1)

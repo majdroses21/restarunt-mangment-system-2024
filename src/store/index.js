@@ -6,192 +6,187 @@ import router from '@/router';
 export default createStore({
   state: {
     baseUrl: 'http://localhost:3000/',
-
-    isUserlogedin: "",
+    // Auth
+    isAuthenticated: "",
     loggedInUserId: "",
+    //Categories
     numOfCategorys: "",
     listOfCategorys: [],
     allCategories: "",
+    allCatysIdIs: [],
+    // Restarunts
     allRestarunts: "",
-    allUserMeals: "",
-    //
     listOfLocations: [],
+    allUserMeals: "",
     locName: "",
-    locNum: "",
     locAdrr: "",
-    //
+    // Items || Meals 
     listOfItems: [],
     numOfItems: "",
-    //
-    catyData: [],
-    catyName: "",
-    //
     allItemsIdIs: [],
-    //
-    allCatysIdIs: [],
-    //
-    listOfAllitems: [],
-    //
   },
-  getters: {},
+  getters: {
+    localStoregInfo() {
+      return localStorage.getItem("user-info");
+    }
+  },
   mutations: {
-    isLoggedInUser(state) {
+    Authentication(state) {
       console.log('fired');
-      let user = localStorage.getItem("user-info");
-      if (user) {
-        state.isUserlogedin = true;
-        state.loggedInUserId = JSON.parse(user).id;
+      if (this.getters.localStoregInfo) {
+        state.isAuthenticated = true;
       } else {
-        state.isUserlogedin = false;
-        router.push({ path: "/login" });
-      }
-      // console.log(state.loggedInUserId);
-    },
-    async displayAllCategorys(state, paylaod) {
-      let url = `http://localhost:3000/categorys?userId=${paylaod.userId}&locationId=${paylaod.locId}`;
-      await axios.get(url)
-        .then(result => {
-          console.log(result.data, "Frome vueX");
-          state.listOfCategorys = result.data;
-          state.numOfCategorys = state.listOfCategorys.length;
-        })
-        .catch(error => {
-          console.log("Catnt to Displayd All the Categories :-(", error);
-        });
-    },
-    async canUserAccessThisCategory(state, paylaod) {
-      let url = `http://localhost:3000/categorys?id=${paylaod.catygoriIdIS}&userId=${state.loggedInUserId}&locationId=${paylaod.locidIs}`;
-      await axios.get(url)
-        .then(result => {
-          state.listOfCategorys = result.data;
-          if (state.listOfCategorys.length !== 1) {
-            router.push({ path: `/my-rests` })
-          }
-        })
-        .catch(error => {
-          console.log(" :-(", error);
-        });
-    },
-    async canUserAccessThisItem(state, paylaod) {
-      let url = `http://localhost:3000/items?id=${paylaod.itemiIdIS}&userId=${state.loggedInUserId}&locationId=${paylaod.locidIs}`;
-      await axios.get(url)
-        .then(result => {
-          state.listOfAllitems = result.data;
-          console.log(state.listOfAllitems.length);
-          if (state.listOfAllitems.length !== 1) {
-            router.push({ path: `/menu/${paylaod.locidIs}` })
-          }
-        })
-        .catch(error => {
-          console.log(" :-(", error);
-        });
-    },
-    async canUserAccessThisLocation(state, paylaod) {
-      let url = `http://localhost:3000/locations?userId=${state.loggedInUserId}&id=${paylaod.locationIdIs}`;
-      await axios.get(url)
-        .then(result => {
-          state.listOfLocations = result.data;
-          if (state.listOfLocations.length !== 1) {
-            router.push({ path: `/my-rests` })
-          }
-        })
-        .catch(error => {
-          console.log(" :-(", error);
-        });
-    },
-    async getLocationInfo(state, paylaod) {
-      let url = `http://localhost:3000/locations?userId=${state.loggedInUserId}&id=${paylaod.locidIs}`;
-      await axios.get(url)
-        .then(result => {
-          let locDetails = [];
-          locDetails = result.data;
-          state.locName = locDetails[0].name;
-          state.loc = locDetails[0].num;
-          state.locAdrr = locDetails[0].addr;
-        })
-        .catch(err => {
-          console.log("Bad Request :-(", err);
-        });
-    },
-    async getCatygoryInfo(state, payload) {
-      let url = `http://localhost:3000/categorys?id=${payload.catygoriIdIS}&userId=${state.loggedInUserId}`;
-      await axios.get(url)
-        .then(result => {
-          state.catyData = result.data;
-          state.catyName = state.catyData[0].name;
-        })
-        .catch(error => {
-          console.log(error, "Bad result :-(");
-        });
-    },
-    async displayAllItems(state, paylaod) {
-      let url = `http://localhost:3000/items?userId=${state.loggedInUserId}&locId=${paylaod.locidIs}`;
-      await axios.get(url)
-        .then(result => {
-          state.listOfItems = result.data;
-          state.numOfItems = state.listOfItems.length;
-        }).
-        catch(error => {
-          console.log("Cat displaying All of The Items :-(", error);
-        });
-    },
-    async getAllItemsIds(state, paylaod) {
-      let url = `http://localhost:3000/items?catygoriID=${paylaod.catidIs}`;
-      let result = await axios.get(url);
-      let resLen = result.data.length;
-      for (let i = 0; i < resLen; i++) {
-        state.allItemsIdIs.push(result.data[i].id);
+        state.isAuthenticated = false;
       }
     },
-    async getAllcatygoriesIds(state, paylaod) {
-      let urlCat = `http://localhost:3000/categorys?locationId=${paylaod.locidIs}`;
-      let resultCategories = await axios.get(urlCat);
-      for (let c = 0; c < resultCategories.data.length; c++) {
-        state.allCatysIdIs.push(resultCategories.data[c].id);
-      }
+    getUserId(state) {
+      // let user = localStorage.getItem("user-info");
+      state.loggedInUserId = JSON.parse(this.getters.localStoregInfo).id;
     },
-    async getAllUserCategories(state) {
-      let url = `http://localhost:3000/categorys?userId=${state.loggedInUserId}`;
-      axios.get(url)
-        .then(result => {
-          state.allCategories = result.data.length
-          console.log(state.allCategories);
-        })
-        .catch(err => {
-          console.log("your Error is ", err);
-        })
+    setLocationInfo(state, locDetails) {
+      state.locName = locDetails.name;
+      state.loc = locDetails.num;
+      state.locAdrr = locDetails.addr;
     },
-    async getAllUserRestarunts(state) {
-      let url = `http://localhost:3000/locations?userId=${state.loggedInUserId}`;
-      axios.get(url)
-        .then(result => {
-          state.allRestarunts = result.data.length
-          console.log(state.allRestarunts);
-        })
-        .catch(err => {
-          console.log("your Error is ", err);
-        })
+    setAllItems(state, items) {
+      state.listOfItems = items;
+      state.numOfItems = state.listOfItems.length;
     },
-    async getAllUserMeals(state) {
-      let url = `http://localhost:3000/items?userId=${state.loggedInUserId}`;
-      axios.get(url)
-        .then(result => {
-          state.allUserMeals = result.data.length
-        })
-        .catch(err => {
-          console.log("your Error is ", err);
-        })
+    setAllItemsIds(state, itemsIds){
+      state.allItemsIdIs = itemsIds;
     },
-
+    setAllCategoriesIds(state,allCategories){
+      state.allCatysIdIs = allCategories;
+    },
     setCategoris(state, payload) {
       state.listOfCategorys = payload;
       state.numOfCategorys = payload;
       console.log(payload + "payload");
 
-    }
+    },
+    setAllCategorys(state, displayCays) {
+      state.listOfCategorys = displayCays
+      state.numOfCategorys = state.listOfCategorys.length;
+    },
+    setLocations(state, location) {
+      state.listOfLocations = location;
+    },
+    setAllUserMeals(state, allUserMeals) {
+      state.allUserMeals = allUserMeals
+    },
+    setAllUserRestarunts(state, allUserRests) {
+      state.allRestarunts = allUserRests
+    },
+    setAllUserCategories(state, allCategories) {
+      state.allCategories = allCategories
+    },
   },
   actions: {
-
+    async doDisplayAllCategorys(context, paylaod) {
+      let url = `http://localhost:3000/categorys?userId=${paylaod.userId}&locationId=${paylaod.locId}`;
+      await axios.get(url)
+        .then(result => {
+          context.commit('setAllCategorys', result.data)
+        })
+        .catch(error => {
+          console.log("Catnt to Displayd All the Categories :-(", error);
+        });
+    },
+    async doCanUserAccessThisLocation(context, paylaod) {
+      let url = `http://localhost:3000/locations?userId=${context.state.loggedInUserId}&id=${paylaod.locationIdIs}`;
+      await axios.get(url)
+        .then(result => {
+          context.commit('setLocations', result.data)
+          if (context.state.listOfLocations.length !== 1) {
+            router.push({ path: `/my-rests` })
+          }
+        })
+        .catch(error => {
+          console.log(" :-(", error);
+        });
+    },
+    async getLocationInfo(context, paylaod) {
+      let url = `http://localhost:3000/locations?userId=${context.state.loggedInUserId}&id=${paylaod.locidIs}`;
+      await axios.get(url)
+        .then(response => {
+          const locDetails = response.data[0];
+          context.commit('setLocationInfo', locDetails);
+        })
+        .catch(err => {
+          console.log("Bad Request :-(", err);
+        });
+    },
+    async displayAllItems(context, paylaod) {
+      let url = `http://localhost:3000/items?userId=${context.state.loggedInUserId}&locId=${paylaod.locidIs}`;
+      await axios.get(url)
+        .then(result => {
+          context.commit('setAllItems', result.data)
+        }).
+        catch(error => {
+          console.log("Cat displaying All of The Items :-(", error);
+        });
+    },
+    async getAllItemsIds(context, paylaod) {
+      let url = `http://localhost:3000/items?catygoriID=${paylaod.catidIs}`;
+      let result = await axios.get(url);
+      let itemsIds = result.data.map(item => item.id);
+      context.commit('setAllItemsIds', itemsIds);
+    },
+    async getAllcatygoriesIds(context, paylaod) {
+      let urlCat = `http://localhost:3000/categorys?locationId=${paylaod.locidIs}`;
+      let resultCategories = await axios.get(urlCat);
+      let allCategories = resultCategories.data.map(cat => cat.id);
+      context.commit('setAllCategoriesIds', allCategories)
+    },
+    async logIn(context, data) {
+      let result;
+      let url = `http://localhost:3000/users?email=${data.email}&pswd=${data.psw}`;
+      let params = {
+        email: context,
+        pass: context
+      }
+      await axios.get(url, params)
+        .then(response => {
+          console.table(response.data);
+          localStorage.setItem("user-info", JSON.stringify(response.data[0]));
+          result = true;
+        })
+        .catch(error => {
+          console.log(error + "Erroooor");
+          // userNotfoundError.value = "user not found 404 :-(";
+        });
+      return result
+    },
+    async doGetAllUserMeals(context) {
+      let url = `http://localhost:3000/items?userId=${context.state.loggedInUserId}`;
+      axios.get(url)
+        .then(result => {
+          context.commit('setAllUserMeals', result.data.length)
+        })
+        .catch(err => {
+          console.log("your Error is ", err);
+        })
+    },
+    async doGetAllUserRestarunts(context) {
+      let url = `http://localhost:3000/locations?userId=${context.state.loggedInUserId}`;
+      axios.get(url)
+        .then(result => {
+          context.commit('setAllUserRestarunts', result.data.length)
+        })
+        .catch(err => {
+          console.log("your Error is ", err);
+        })
+    },
+    async doGetAllUserCategories(context) {
+      let url = `http://localhost:3000/categorys?userId=${context.state.loggedInUserId}`;
+      axios.get(url)
+        .then(result => {
+          context.commit('setAllUserCategories', result.data.length)
+        })
+        .catch(err => {
+          console.log("your Error is ", err);
+        })
+    },
   },
   modules: {}
 })

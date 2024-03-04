@@ -1,23 +1,16 @@
 <template>
     <v-chart class="chart" :option="option" />
-</template>
-  
+</template>  
 <script setup>
 import { useStore } from "vuex";
-let store = useStore();
-store.commit('getAllUserCategories');
-console.log(store.state.allCategories);
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { PieChart } from "echarts/charts";
-import {
-    TitleComponent,
-    TooltipComponent,
-    LegendComponent
-} from "echarts/components";
+import { TitleComponent, TooltipComponent, LegendComponent} from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
 import { ref, provide } from "vue";
-
+let store = useStore();
+store.commit('getUserId');
 use([
     CanvasRenderer,
     PieChart,
@@ -60,19 +53,23 @@ const option = ref({
             labelLine: {
                 show: false
             },
-            data: [
-                { value: 12, name: 'Restaurants', itemStyle: { color: '#ffc107' } },
-                { value: 30, name: 'Menus', itemStyle: { color: '#eb2210' } },
-                { value: 30, name: 'Categories', itemStyle: { color: 'plum' } },
-                { value: 20, name: 'Meals', itemStyle: { color: '#00FF00' } }
-            ]
+            data: []
         }
     ]
 });
 
+// Delayed execution after 5 seconds
+setTimeout(() => {
+    console.log(store.state.allUserMeals);
 
-
-
+    // Update the 'data' property in the 'option' ref
+    option.value.series[0].data = [
+        { value: store.state.allRestarunts, name: 'Restaurants', itemStyle: { color: '#ffc107' } },
+        { value: store.state.allRestarunts, name: 'Menus', itemStyle: { color: '#eb2210' } },
+        { value: store.state.allCategories, name: 'Categories', itemStyle: { color: 'plum' } },
+        { value: store.state.allUserMeals, name: 'Meals', itemStyle: { color: '#00FF00' } }
+    ];
+}, 100); // 5000 milliseconds (5 seconds)
 </script>
   
 <style scoped>

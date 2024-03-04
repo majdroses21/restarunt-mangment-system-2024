@@ -56,7 +56,7 @@ const deleteItemMeal = async () => {
             successMessage.value = "Item is Deleted successfully";
             setTimeout(() => {
                 successMessage.value = "";
-                store.commit('displayAllItems', { locidIs: props.deleteItem.locId });
+                store.dispatch('displayAllItems', { locidIs: props.deleteItem.locId });
                 document.getElementById("closemodel").click();
             }, 1000);
         })
