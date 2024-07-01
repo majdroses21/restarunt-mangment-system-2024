@@ -116,12 +116,12 @@ let route = useRoute();
 //Data
 let locationId = ref('');
 onMounted(async () => {
-    console.log("stor is", store);
+    // console.log("stor is", store);
     store.commit('getUserId');
 
     locationId.value = route.params.locationId;
 
-    console.log(route.params);
+    // console.log(route.params);
     let usID = JSON.parse(localStorage.getItem("user-info")).id;
     store.dispatch('doDisplayAllCategorys', { userId: usID, locId: locationId.value });
 

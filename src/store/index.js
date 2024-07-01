@@ -27,21 +27,19 @@ export default createStore({
   },
   getters: {
     localStoregInfo() {
-      return localStorage.getItem("user-info");
+      return JSON.parse(localStorage.getItem("user-info")).id; 
     }
   },
   mutations: {
     Authentication(state) {
       console.log('fired');
+      state.loggedInUserId = this.getters.localStoregInfo;
+      console.log(state.loggedInUserId);
       if (this.getters.localStoregInfo) {
         state.isAuthenticated = true;
       } else {
         state.isAuthenticated = false;
       }
-    },
-    getUserId(state) {
-      // let user = localStorage.getItem("user-info");
-      state.loggedInUserId = JSON.parse(this.getters.localStoregInfo).id;
     },
     setLocationInfo(state, locDetails) {
       state.locName = locDetails.name;
@@ -83,7 +81,8 @@ export default createStore({
   },
   actions: {
     async doDisplayAllCategorys(context, paylaod) {
-      let url = `http://localhost:3000/categorys?userId=${paylaod.userId}&locationId=${paylaod.locId}`;
+      let url = `http://localhost:3000/categorys?locationId=${paylaod.locId}&userId=${paylaod.userId}`;
+      // let url = `http://localhost:3000/categorys?userId=${paylaod.userId}&locationId=${paylaod.locId}`;
       await axios.get(url)
         .then(result => {
           context.commit('setAllCategorys', result.data)
@@ -93,7 +92,8 @@ export default createStore({
         });
     },
     async doCanUserAccessThisLocation(context, paylaod) {
-      let url = `http://localhost:3000/locations?userId=${context.state.loggedInUserId}&id=${paylaod.locationIdIs}`;
+      let url = `http://localhost:3000/locations?id=${paylaod.locationIdIs}&userId=${context.state.loggedInUserId}`;
+      // let url = `http://localhost:3000/locations?userId=${context.state.loggedInUserId}&id=${paylaod.locationIdIs}`;
       await axios.get(url)
         .then(result => {
           context.commit('setLocations', result.data)
@@ -106,7 +106,8 @@ export default createStore({
         });
     },
     async getLocationInfo(context, paylaod) {
-      let url = `http://localhost:3000/locations?userId=${context.state.loggedInUserId}&id=${paylaod.locidIs}`;
+      // let url = `http://localhost:3000/locations?userId=${context.state.loggedInUserId}&id=${paylaod.locidIs}`;
+      let url = `http://localhost:3000/locations?id=${paylaod.locidIs}&userId=${context.state.loggedInUserId}`;
       await axios.get(url)
         .then(response => {
           const locDetails = response.data[0];
@@ -117,7 +118,8 @@ export default createStore({
         });
     },
     async displayAllItems(context, paylaod) {
-      let url = `http://localhost:3000/items?userId=${context.state.loggedInUserId}&locId=${paylaod.locidIs}`;
+      // let url = `http://localhost:3000/items?userId=${context.state.loggedInUserId}&locId=${paylaod.locidIs}`;
+      let url = `http://localhost:3000/items?locId=${paylaod.locidIs}&userId=${context.state.loggedInUserId}`;
       await axios.get(url)
         .then(result => {
           context.commit('setAllItems', result.data)
@@ -140,7 +142,7 @@ export default createStore({
     },
     async logIn(context, data) {
       let result;
-      let url = `http://localhost:3000/users?email=${data.email}&pswd=${data.psw}`;
+      let url = `http://localhost:3000/users?email=${data.email}&psw=${data.psw}`;
       let params = {
         email: context,
         pass: context

@@ -1,7 +1,4 @@
 <template>
-    <div>
-        Dash Board Page
-    </div>
     <div class="container">
         <div class="row mt-3">
             <!-- Rests -->

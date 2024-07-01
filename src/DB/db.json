@@ -1,369 +1,172 @@
 {
   "users": [
     {
-      "name": "Majd  B  Ahmed",
+      "name": "Majd    Ahmed",
       "email": "majdahmed@gmail.com",
       "psw": "00001111",
       "id": 1
     },
     {
-      "name": "Majood",
-      "email": "majood@yaho.com",
-      "psw": "123123",
-      "id": 4
-    },
-    {
-      "name": "x",
-      "email": "x.x@xx.xx",
-      "psw": "xxxxxx",
-      "id": 5
-    },
-    {
-      "name": "ee",
-      "email": "ee@ee.ee",
-      "psw": "eeee",
-      "id": 6
-    },
-    {
-      "name": "ee 1",
-      "email": "ee@ww.ww",
-      "psw": "eee",
-      "id": 7
-    },
-    {
-      "name": "YAser",
-      "email": "ysao@gmail.com",
-      "psw": "1111",
-      "id": 8
-    },
-    {
-      "name": "4rgrgrg",
-      "email": "ererere@gmail.com",
-      "psw": "12345678",
-      "id": 9
-    },
-    {
-      "email": "majdavdsvhmed@gmail.com",
-      "pass": "12345678",
-      "id": 10
-    },
-    {
-      "name": "Jon",
-      "email": "jon@jon.jn",
-      "psw": "123321",
-      "id": 11
+      "id": "f466",
+      "name": "Cheef OO",
+      "email": "oo@gmail.com",
+      "psw": "11110000"
     }
   ],
   "locations": [
     {
-      "name": "Yahozaas",
-      "num": 2342323232323,
-      "addr": "fegrgh5rgrg",
-      "userId": 4,
-      "id": 4
+      "name": "Red Lobster",
+      "num": "0995555560",
+      "addr": "Palestine Gaza",
+      "userId": 1,
+      "id": 11
     },
     {
-      "name": "fefefefefef",
-      "num": 89894678678,
-      "addr": "fegrgh5rgrg",
-      "userId": 4,
-      "id": 5
-    },
-    {
-      "name": "X Resturant",
-      "num": 99452374065,
-      "addr": "X Strite",
-      "userId": 5,
-      "id": 23
-    },
-    {
-      "name": "Varto Rest",
-      "num": 4144569874,
-      "addr": "Syria, latakia ",
-      "userId": 5,
-      "id": 24
-    },
-    {
-      "name": "KFC       ",
-      "num": "0992233548",
+      "name": "Olive Garden",
+      "num": "0995555554",
       "addr": "Syria, Damascus",
       "userId": 1,
-      "id": 26
+      "id": 12
     },
     {
-      "name": "Macdonals",
-      "num": 9987526545,
+      "name": "Hard Rock",
+      "num": "0995555562",
       "addr": "UAE , Dubai",
       "userId": 1,
-      "id": 27
+      "id": 13
     },
     {
-      "name": "Reta Restarunt",
-      "num": "0096471254568",
-      "addr": "Iraq, Baghdad",
+      "name": "Nobu Restarunt",
+      "num": "017654321",
+      "addr": "Bahrain, Manama",
       "userId": 1,
-      "id": 28
+      "id": 14
     },
     {
-      "name": "reeee",
-      "num": 3433343434343,
-      "addr": "ggfgfgf",
+      "name": "Outback Steakhouse",
+      "num": "033123456",
+      "addr": "Jordan, Amman",
       "userId": 1,
-      "id": 29
+      "id": 15
     },
     {
-      "name": "My New Restarunt",
-      "num": 9945274086,
-      "addr": "Syria, jableh",
+      "name": "Applebee's Restarunt",
+      "num": "0223456789",
+      "addr": "Egypt, Cairo,",
       "userId": 1,
-      "id": 30
+      "id": 16
     },
     {
-      "name": "Shonsheka",
-      "num": 6658624545,
-      "addr": "China, Bekine",
+      "name": "TGI Fridays",
+      "num": "0123456789",
+      "addr": "Lebanon, Beirut",
       "userId": 1,
-      "id": 33
+      "id": 17
     },
     {
-      "name": "he33333",
-      "num": 545454545454,
-      "addr": "ghghghghghghgh",
+      "name": "Cheesecake Factory",
+      "num": "0112345678",
+      "addr": "Saudi Arabia, Riyadh",
       "userId": 1,
-      "id": 38
+      "id": 18
     },
     {
-      "name": "rrrrrrtr",
-      "num": "54545454545",
-      "addr": "fggfgfgfgfgfgfgfg",
+      "name": "The Ritz-Carlton",
+      "num": "024567890",
+      "addr": "Oman, Muscat",
       "userId": 1,
-      "id": 39
+      "id": 19
+    },
+    {
+      "id": "badc",
+      "name": "New rest",
+      "num": 9888777433,
+      "addr": "test, test",
+      "userId": "f466"
     }
   ],
   "categorys": [
     {
-      "name": "Breack Fasts",
-      "locationId": 26,
+      "name": "Breakfast meals",
+      "locationId": 11,
       "userId": 1,
       "id": 1
     },
     {
-      "name": "Lanches",
-      "locationId": 26,
+      "name": "Lunches",
+      "locationId": 11,
       "userId": 1,
       "id": 2
     },
     {
       "name": "Diners",
-      "locationId": 26,
+      "locationId": 11,
       "userId": 1,
       "id": 3
     },
     {
-      "name": "Breack Fasts X",
-      "locationId": 27,
+      "name": "Breakfast meals X",
+      "locationId": 13,
       "userId": 1,
+      "id": 4
+    },
+    {
+      "name": "Lunches",
+      "userId": 1,
+      "locationId": 13,
       "id": 5
     },
     {
-      "name": "Lanches",
+      "name": "Friday meals",
       "userId": 1,
-      "locationId": "27",
+      "locationId": 13,
       "id": 6
     },
     {
-      "name": "Breack Fasts",
-      "userId": 5,
-      "locationId": 24,
+      "name": "Happy meals",
+      "userId": 1,
+      "locationId": 13,
       "id": 7
     },
     {
-      "name": "hiiiiii",
-      "userId": 5,
-      "locationId": null,
-      "id": 8
-    },
-    {
-      "name": "My New Caty",
-      "userId": 5,
-      "locationId": 23,
+      "name": "Night meals",
+      "userId": 1,
+      "locationId": 11,
       "id": 9
     },
     {
-      "name": "dtest one",
-      "userId": 5,
-      "locationId": 23,
+      "name": "Fox meals",
+      "userId": 1,
+      "locationId": 11,
       "id": 10
     },
     {
-      "name": "2222",
-      "userId": 5,
-      "locationId": 23,
-      "id": 11
-    },
-    {
-      "name": "333",
-      "userId": 5,
-      "locationId": 23,
-      "id": 12
-    },
-    {
-      "name": "Test",
-      "userId": 1,
-      "locationId": 26,
-      "id": 13
+      "id": "051b",
+      "name": "new caty",
+      "userId": "f466",
+      "locationId": null
     }
   ],
   "items": [
     {
-      "name": "Spacety With bashameless",
-      "price": 30,
-      "description": "lorem Ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dol suites et dolor et dis",
-      "qey": 50,
+      "name": "Grilled Kebab",
+      "price": 45,
+      "description": "Grilled kebab on charcoal with oriental spices and a smoky flavor.",
+      "qey": 30,
       "userId": 1,
       "catygoriID": 2,
-      "locId": 26,
+      "locId": 11,
       "id": 1
     },
     {
-      "name": "MoloKheah With Rice",
-      "price": 50,
-      "description": "lorem Ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dol suites et dolor et dis",
-      "qey": 70,
-      "userId": 1,
-      "catygoriID": 2,
-      "locId": 26,
-      "id": 2
-    },
-    {
-      "name": "Crusent Wirh Chees",
-      "price": "15",
-      "qey": "200",
-      "description": "lorem Ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dol suites et dolor et dis",
-      "catygoriID": "1",
-      "userId": 1,
-      "locId": 26,
-      "id": 3
-    },
-    {
-      "name": "Crusent Wirh Chees XYZ",
-      "price": 15,
-      "description": "lorem Ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dol suites et dolor et dis",
-      "qey": 200,
-      "userId": 1,
-      "catygoriID": 1,
-      "locId": 27,
-      "id": 4
-    },
-    {
-      "name": "Omlate ",
-      "price": "50",
-      "qey": "100",
-      "description": "lorem Ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dol suites et dolor et dis",
-      "catygoriID": "1",
-      "userId": 1,
-      "locId": 26,
-      "id": 5
-    },
-    {
-      "name": "test",
-      "price": 66,
-      "description": "            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, libero! Fugit necessitatibus repellat nesciunt vel neque incidunt natus asperiores earum, dignissimos ab enim accusamus iure aut ad minus error nisi?\n",
-      "qey": 66,
-      "userId": 1,
-      "catygoriID": 2,
-      "locId": 26,
-      "id": 6
-    },
-    {
-      "name": "test",
-      "price": 66,
-      "description": "            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, libero! Fugit necessitatibus repellat nesciunt vel neque incidunt natus asperiores earum, dignissimos ab enim accusamus iure aut ad minus error nisi?\n",
-      "qey": 777,
-      "userId": 1,
-      "catygoriID": 3,
-      "locId": 26,
-      "id": 7
-    },
-    {
-      "name": "",
-      "price": "",
-      "description": "",
-      "qey": "",
-      "userId": 1,
-      "catygoriID": "",
-      "locId": 26,
-      "id": 8
-    },
-    {
-      "name": "4444444445",
-      "price": 4,
-      "description": "dwffefeeegeggegeg",
-      "qey": 444444444,
-      "userId": 1,
-      "catygoriID": "Open This Select Menue",
-      "locId": 26,
-      "id": 9
-    },
-    {
-      "name": "Syrian Fata",
-      "price": "50",
-      "qey": "70",
-      "description": "lorem Ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dol suites et dolor et dis",
-      "catygoriID": "1",
-      "userId": 1,
-      "locId": 26,
-      "id": 10
-    },
-    {
-      "name": "Cheez Crusent",
-      "price": 7,
-      "description": "    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus praesentium eligendi alias culpa molestias nobis tempora ab perspiciatis non voluptatum aliquid hic, repellat reiciendis totam. Facilis laborum eum saepe veniam.\n",
-      "qey": 100,
+      "name": "Meat Tagine",
+      "price": 60,
+      "description": "Slow-cooked beef tagine with vegetables and aromatic spices.",
+      "qey": 25,
       "userId": 1,
       "catygoriID": 5,
-      "locId": 27,
-      "id": 11
-    },
-    {
-      "name": "jabanen Rise",
-      "price": 3,
-      "description": "    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus praesentium eligendi alias culpa molestias nobis tempora ab perspiciatis non voluptatum aliquid hic, repellat reiciendis totam. Facilis laborum eum saepe veniam.\n",
-      "qey": 40,
-      "userId": 1,
-      "catygoriID": 6,
-      "locId": 27,
-      "id": 12
-    },
-    {
-      "name": "New Item Test",
-      "price": 37,
-      "description": "    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus praesentium eligendi alias culpa molestias nobis tempora ab perspiciatis non voluptatum aliquid hic, repellat reiciendis totam. Facilis laborum eum saepe veniam.\n",
-      "qey": 93,
-      "userId": 5,
-      "catygoriID": 7,
-      "locId": 24,
-      "id": 13
-    },
-    {
-      "name": "Margeta Pizza",
-      "price": "22",
-      "qey": "50",
-      "description": "lorem Ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dol suites et dolor et dis",
-      "catygoriID": "1",
-      "userId": 1,
-      "locId": 26,
-      "id": 14
-    },
-    {
-      "name": "New item test",
-      "price": 10,
-      "description": "any dekjgodjig ropkho-h\nhthrthhtr\nrth",
-      "qey": 10,
-      "userId": 1,
-      "catygoriID": 3,
-      "locId": 26,
-      "id": 15
+      "locId": 13,
+      "id": 2
     }
   ]
 }

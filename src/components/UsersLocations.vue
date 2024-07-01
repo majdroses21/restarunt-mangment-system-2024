@@ -51,7 +51,6 @@
     </div>
 </template>
 
-
 <style scoped>
 .card {
     /* width: 23rem; */
@@ -108,8 +107,6 @@ const toDelete = ref({});
 const toUpdate = ref({});
 
 const textToCofirm = "Delete Restaurant";
-
-
 
 watch(
     () => toDelete.value, (newVal) => {
