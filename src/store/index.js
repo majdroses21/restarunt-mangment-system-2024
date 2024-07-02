@@ -27,15 +27,20 @@ export default createStore({
   },
   getters: {
     localStoregInfo() {
-      return JSON.parse(localStorage.getItem("user-info")).id; 
+        return JSON.parse(localStorage.getItem("user-info")).id;   
     }
   },
   mutations: {
     Authentication(state) {
       console.log('fired');
-      state.loggedInUserId = this.getters.localStoregInfo;
+      try {
+        state.loggedInUserId = this.getters.localStoregInfo;
+        
+      } catch (error) {
+        console.log("I cach id error:", error );
+      }
       console.log(state.loggedInUserId);
-      if (this.getters.localStoregInfo) {
+      if (JSON.parse(localStorage.getItem("user-info"))) {
         state.isAuthenticated = true;
       } else {
         state.isAuthenticated = false;
