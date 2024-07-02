@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <!-- Search -->
-        <form class="d-flex me-auto" role="search">
+        <form class="d-flex me-auto search-respons" role="search">
           <div class="nav-search">
             <input class="nav-inp" type="search" placeholder="Search" aria-label="Search">
             <button class="" type="submit"><font-awesome-icon :icon="['fas', 'magnifying-glass']"
@@ -18,7 +18,7 @@
           </div>
         </form>
         <!-- Actions -->
-        <ul class="navbar-nav  mb-2 mb-lg-0 d-flex" style="align-items: baseline">
+        <ul class="navbar-nav  mb-2 mb-lg-0 d-flex nav-respons" style="align-items: baseline">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
               <font-awesome-icon :icon="['fas', 'comments']" class="font-icon" />
@@ -37,7 +37,6 @@
           <li class="nav-item">
             <ToggelBtn />
           </li>
-
         </ul>
         <!-- profile -->
         <div class="nav-profile">
@@ -116,5 +115,23 @@ import ToggelBtn from "@/components/ToggelBtn.vue";
   cursor: pointer;
   width: 20%;
 }
-</style>
+@media (min-width: 320px) and (max-width:992px)  {
+  .nav-respons{
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .search-respons{
+    /* border: red solid 3px; */
+    margin-left: 100px;
+    margin-bottom: 10px;
+    margin-top: 5px;
 
+  }
+}
+@media (max-width:490px){
+  .search-respons{
+    margin-left: 0 !important;
+  }
+}
+</style>

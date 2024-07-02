@@ -39,7 +39,10 @@ import { required, email } from '@vuelidate/validators';
 import { ref, computed } from "vue";
 import NavbarAuth from "@/components/NavbarAuth.vue";
 import { useStore } from "vuex";
-import router from '@/router';
+// import router from '@/router';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 let store = useStore();
 
 // Data
@@ -72,8 +75,11 @@ const userLogin = async () => {
    const res = await  store.dispatch('logIn', state.value);
    if (res) {
    setTimeout(() => {
-    router.push({path: '/'})
-   }, 200);
+     router.push({path: '/'})
+  }, 200);
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
    }
   } else {
     console.log("Mesh Tamam Khales");

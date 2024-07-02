@@ -110,7 +110,11 @@ router.beforeEach((to, from, next) => {
   if (to.name != 'LoginForm' && to.name != 'Sinup' && !isAuthenticated){
      next('/login');
     return
-  } else{
+  } 
+   else if(to.name == 'LoginForm' && isAuthenticated){
+    next('/')
+   }
+  else{
      next()
   }
  return next()

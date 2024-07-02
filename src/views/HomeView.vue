@@ -10,3 +10,8 @@ import { useStore } from "vuex";
 const store = useStore();
 store.commit('getUserId');
 </script>
+<style scoped>
+.home{
+  margin-top: 150px;
+}
+</style>
