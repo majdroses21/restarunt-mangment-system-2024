@@ -6,7 +6,7 @@ import SinupVue from '../views/SinupVue.vue';
 import LoginVue from '../views/LoginVue.vue';
 
 //Home
-import HomeView from '../views/HomeView.vue';
+// import HomeView from '../views/HomeView.vue';
 
 //Dash
 import DashBoard  from '../views/DashBoard.vue'; 
@@ -39,17 +39,17 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/dashboard',
-    name: 'Dash_Board',
-    component: DashBoard
+    component: MyRests
   },
   {
     path: '/my-rests',
     name: 'MyResturants',
     component: MyRests
+  },
+  {
+    path: '/dashboard',
+    name: 'Dash_Board',
+    component: DashBoard
   },
   {
     path: '/menu/view/:locationId',

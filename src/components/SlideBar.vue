@@ -60,17 +60,12 @@
         <ul>
             <li>
                 <router-link to="/">
-                    <font-awesome-icon :icon="['fas', 'house']" class="font-icon" />
+                    <font-awesome-icon :icon="['fas', 'utensils']" class="font-icon" />
                 </router-link>
             </li>
             <li>
                 <router-link to="/dashboard">
                     <font-awesome-icon :icon="['fas', 'dashboard']" class="font-icon" />
-                </router-link>
-            </li>
-            <li>
-                <router-link to="/my-rests">
-                    <font-awesome-icon :icon="['fas', 'utensils']" class="font-icon" />
                 </router-link>
             </li>
             <li>

@@ -1,7 +1,7 @@
 <template>
     <br>
     <AddnewlocationModal @reloadData="GetRestarunts" />
-    <UsersLocations :allLocations="listOfLocations" @reloadData="GetRestarunts" />
+    <UsersLocations :allLocations="listOfLocations" @reloadData="GetRestarunts" class="handel-bootom-sapce" />
 </template>
 
 <script setup>
@@ -43,4 +43,10 @@ onMounted(async () => {
 </script>
 
 
-
+<style scoped>
+@media (max-width: 480px) {
+    .handel-bootom-sapce{
+        margin-bottom: 90px;
+    }
+}
+</style>
