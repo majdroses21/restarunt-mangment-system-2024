@@ -9,17 +9,20 @@
                     <DeleteAll @reloadData="$emit('reloadData')" />
                 </span>
             </caption>
-            <div class="col-lg-4 col-md-6 col-sm-12 " v-for="loc in props.allLocations" :key="loc.id">
-                <div>
-                    <b-card no-body class="overflow-hidden mb-2 me-1 ms-1" style="max-width: 560px; ">
+            <div class="col-lg-4 col-md-6 col-sm-6" v-for="loc in props.allLocations" :key="loc.id" >
+                <!-- <div style="border: black solid 0.3px"> -->
+                    <b-card no-body class="card-mob overflow-hidden mb-2 me-1 ms-1 border shadow" style="max-width: 560px; max-height: 175px; ">
                         <b-row no-gutters>
-                            <b-col md="6" class="img-cont">
-                                <b-card-img src="img/rest.webp" alt="Image" class="rounded-0"></b-card-img>
+                            <b-col lg="4" md="4" sm="12" class="img-cont custom-img-mob">
+                                <b-card-img src="img/rest.webp" alt="Image" class="rounded-0" style="height: 100%;"></b-card-img>
                             </b-col>
-                            <b-col md="6">
-                                <b-card-body :title="loc.name">
+                            <b-col lg="8" md="8" sm="12"  >
+                                <b-card-body >
+                                    <b-card-text class=" m-0 p-0">
+                                        <h5 class="card-title">{{ loc.name }}</h5>
+                                        </b-card-text>
                                     <b-card-text>
-                                        <p class="card-title text-dark">{{ loc.addr }}</p>
+                                        <p class="card-title text-dark fs-6">{{ loc.addr }}</p>
                                         <h6 class="card-title text-secondary">{{ loc.num }}</h6>
                                         <input type="hidden" v-model="loc.id">
                                         <div class="actions-parent">
@@ -51,7 +54,7 @@
                             </b-col>
                         </b-row>
                     </b-card>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
         <div class=" alert alert-warning" v-else> No Locations Yet !!!</div>
@@ -75,21 +78,19 @@
         object-fit: cover;
         height: 200px;
     }
+    .card-mob{
+        max-height: 95% !important;
+    }
+ 
 }
 
-@media (min-width: 768px) {
-    .actions-parent {
-        /* margin-top: 55px; */
-        /* margin-left: -100px; */
-        /* margin-bottom: 0; */
-        /* width: 150% !important; */
-        /* border: rgb(226, 43, 43) solid 7px; */
+@media (min-width: 490px) {
+    .img-cont>img {
+        object-fit: cover;
+        height: 200px;
     }
-
-    .btn-action {
-
-        /* border: rgb(226, 43, 43) solid 3px; */
-
+    .card-mob{
+        max-height: 95% !important;
     }
 }
 </style>
